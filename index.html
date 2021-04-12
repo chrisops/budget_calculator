@@ -4,16 +4,58 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>MyBudget</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">      
 </head>
 <body>
-    <nav class="navbar">
-        <ul>
-            <li>Home</li>
-            <li>My budget</li>
-        </ul>
-    </nav>
-    <h1>MyBudget</h1>
+
+    <header><h1>Expense Tracker and Budget Monitor</h1></header>
+
+    <div class="flexmain">
+
+        <div class="tablediv">
+
+            <div class="box">
+                <h2 class="tablehead">Transaction table</h2>
+            </div>
+
+            <div class="box">
+                <h2><label for="month">View by Month</label></h2>
+                <select id="month" name="month">
+                    <option value="january">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                </select>
+            </div>
+
+            <a href="#"><div class="box">
+                <h2 class="tablehead">Add New</h2>
+            </div></a>
+
+        </div>
+        <div id="secondcolumn">
+
+            <div id="actual">
+
+            </div>
+
+            <div id="expchart">
+
+            </div>
+
+        </div>
+
+    </div>
 </body>
 </html>
