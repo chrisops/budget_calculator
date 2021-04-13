@@ -1,2 +1,2 @@
 # budget_calculator
-Basic project for calculating personal income and expenses
+Basic project for expense tracking and budget control.
