@@ -45,7 +45,7 @@ h2 {
     /* width:30%; */
 }
 
-.flexmain {
+main, .flexmain { /* Kept .flexmain just incase :p */
     padding: 6px;
     box-sizing: border-box;
     background-color: rgb(196, 196, 196);
