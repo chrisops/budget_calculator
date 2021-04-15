@@ -31,7 +31,7 @@ function listOptions(arr){
 var tabledate = `<input class="incexp" type="date" value="${today}">`;
 
     // income or expense
-var tableincexp = '<select class="incexp" name="incexp"> <option value="Income">Income</option> <option value="Expense">Expense</option> </select>';
+var tableincexp = '<select class="incexp" name="incexp"> <option value="Expense">Expense</option> <option value="Income">Income</option> </select>';
 
     // amount
 var tableamount = '<input class="incexp" type="text" value="$0.00">';
@@ -59,7 +59,7 @@ function addNewRow(){
     row.insertCell(0).innerHTML = tabledate;
     row.insertCell(1).innerHTML = tableincexp;
     row.insertCell(2).innerHTML = tableamount;
-    row.insertCell(3).innerHTML = tableinccategories;
+    row.insertCell(3).innerHTML = tableexpcategories;
     row.insertCell(4).innerHTML = tablesubcat;
     row.insertCell(5).innerHTML = tabledesc;
     row.insertCell(6).innerHTML = tablepaidby;
