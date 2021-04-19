@@ -13,21 +13,12 @@ var expcategories = [
   "Leisure and Travel",
   "Social",
   "Suscriptions",
+  "One-off Cost",
 ];
 // Income categories
-var inccategories = [
-  "Salary",
-  "Bonus",
-  "Casual Work",
-  "Selling",
-  "Interest Money",
-  "Gifts",
-  "Benefit",
-  "Tax Refund",
-  "Other",
-];
-// Subcategories
-var subcategories = [
+var inccategories = ["Regular", "One-off", "Casual", "Other"];
+// Expsense Subcategories
+var expsubcategories = [
   "Dine out",
   "Groceries",
   "Delivery",
@@ -51,10 +42,23 @@ var subcategories = [
   "Parking Fees and fines",
   "Petrol",
   "Taxi and Uber",
-  "Other",
   "Social Meals and drinks",
   "Social Activities",
   "Social Gifts",
+  "Other",
+];
+// Income Subcategories
+var incsubcategories = [
+  "Salary",
+  "Bonus",
+  "Casual Work",
+  "Selling",
+  "Interest Money",
+  "Gifts",
+  "Benefit",
+  "Tax Refund",
+  "Social Gifts",
+  "Other",
 ];
 // Paid by methods
 var paidby = [
@@ -90,7 +94,7 @@ var tabledate = `<input class="incexp" type="date" value="${today}">`;
 
 // income or expense
 var tableincexp =
-  '<select class="incexp" name="incexp"> <option value="Expense">Expense</option> <option value="Income">Income</option> </select>';
+  '<select class="incexp" name="incexp" onchange="toggle_category(this.value)" > <option value="Expense">Expense</option> <option value="Income">Income</option> </select>';
 
 // amount
 var tableamount = '<input class="incexp" type="text" value="$0.00">';
@@ -99,15 +103,18 @@ var tableamount = '<input class="incexp" type="text" value="$0.00">';
 var exptablecat = listOptions(expcategories);
 var inctablecat = listOptions(inccategories);
 
-var tableinccategories =
-  '<select class="incexp" name="inccat">' + inctablecat + "</select>";
-var tableexpcategories =
-  '<select class="incexp" name="expcat">' + exptablecat + "</select>";
+var tablecategories =
+  '<select class="incexp" name="cat" id = "category">' +
+  exptablecat +
+  "</select>";
 
 // subcategories
+var expsubcategories = listOptions(expsubcategories);
+var incsubcategories = listOptions(incsubcategories);
+
 var tablesubcat =
-  '<select class="incexp" name="subcat">' +
-  listOptions(subcategories) +
+  '<select class="incexp" name="subcat" id = "subcategory">' +
+  expsubcategories +
   "</select>";
 
 // description
@@ -124,8 +131,21 @@ function addNewRow() {
   row.insertCell(0).innerHTML = tabledate;
   row.insertCell(1).innerHTML = tableincexp;
   row.insertCell(2).innerHTML = tableamount;
-  row.insertCell(3).innerHTML = tableexpcategories;
+  row.insertCell(3).innerHTML = tablecategories;
   row.insertCell(4).innerHTML = tablesubcat;
   row.insertCell(5).innerHTML = tabledesc;
   row.insertCell(6).innerHTML = tablepaidby;
+}
+
+function toggle_category(value) {
+  let cat = document.getElementById("category");
+  let subcat = document.getElementById("subcategory");
+
+  if (value == "Expense") {
+    cat.innerHTML = exptablecat;
+    subcat.innerHTML = expsubcategories;
+  } else {
+    cat.innerHTML = inctablecat;
+    subcat.innerHTML = incsubcategories;
+  }
 }
