@@ -2,15 +2,11 @@
   margin: 0;
   padding: 0;
   text-decoration: none;
+  
 }
 
 .btngroup {
   display: block;
-}
-
-#month {
-  display: block;
-  background: rgb(196, 196, 196);
 }
 
 body {
@@ -52,8 +48,16 @@ h2 {
   border-radius: 5px;
   margin-left: 1rem;
   margin-right: 1rem;
-  padding: 0 1rem 0 1rem;
+  padding: 0 1rem;
   /* width:30%; */
+}
+.button:hover {
+  cursor: pointer;
+  background-color: rgba(224, 221, 214, 0.75);
+}
+.button:active {
+  cursor: pointer;
+  background-color: rgba(184, 181, 175, 0.75);
 }
 
 .flexmain {
@@ -75,8 +79,8 @@ h2 {
   border-radius: 0 spx;
   box-sizing: border-box;
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 #tablemonth {
@@ -88,12 +92,25 @@ h2 {
 }
 
 #month {
+  display: block;
+  background: rgb(196, 196, 196);
   height: 20px;
   text-align: center;
   font-family: monospace, sans-serif;
-  border-radius: 5px;
+  border-radius: 3px;
   background-color: rgb(79, 79, 79);
   color: rgb(228, 228, 228);
+}
+
+.incexp {
+  height: 20px;
+  width: 100%;
+  text-align: center;
+  font-family: monospace, sans-serif;
+  border-radius: 2px;
+  border: 0px;
+  background-color: rgb(216, 214, 206);
+  color: rgb(37, 34, 34);
 }
 
 #secondcolumn {
@@ -125,4 +142,25 @@ h2 {
   text-align: center;
   padding: 20px;
   margin-top: 20px;
+}
+
+#transactions {
+    margin: 16px 4px;
+    font-family: monospace, sans-serif;
+}
+
+th, td {
+    padding: 4px;
+}
+
+th {
+    background-color: rgb(79, 79, 79);
+    color:rgb(228, 228, 228);
+}
+
+tr:nth-child(even) {
+    background-color: rgb(231, 231, 218);
+}
+tr:nth-child(odd) {
+    background-color: rgb(211, 207, 197);
 }
