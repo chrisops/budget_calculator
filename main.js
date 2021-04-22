@@ -1,6 +1,8 @@
+"use strict";
+
 // table values
 // Expense categories
-var expcategories = [
+const expcategories = [
   "Eat",
   "Health and Fitness",
   "Insurances",
@@ -16,9 +18,9 @@ var expcategories = [
   "One-off Cost",
 ];
 // Income categories
-var inccategories = ["Regular", "One-off", "Casual", "Other"];
+const inccategories = ["Regular", "One-off", "Casual", "Other"];
 // Expsense Subcategories
-var expsubcategories = [
+const expsubcats = [
   "Dine out",
   "Groceries",
   "Delivery",
@@ -48,7 +50,7 @@ var expsubcategories = [
   "Other",
 ];
 // Income Subcategories
-var incsubcategories = [
+const incsubcats = [
   "Salary",
   "Bonus",
   "Casual Work",
@@ -61,7 +63,7 @@ var incsubcategories = [
   "Other",
 ];
 // Paid by methods
-var paidby = [
+const paidby = [
   "CBA Debit",
   "Amex",
   "Direct Debit",
@@ -72,15 +74,15 @@ var paidby = [
 ];
 
 // get current date
-var today = new Date();
-var dd = String(today.getDate()).padStart(2, "0");
-var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-var yyyy = today.getFullYear();
+const today_date = new Date();
+const dd = String(today_date.getDate()).padStart(2, "0");
+const mm = String(today_date.getMonth() + 1).padStart(2, "0"); //January is 0!
+const yyyy = today_date.getFullYear();
 
-today = yyyy + "-" + mm + "-" + dd;
+const today = yyyy + "-" + mm + "-" + dd;
 
 function listOptions(arr) {
-  var result = "";
+  let result = "";
   for (let i = 0; i < arr.length; i++) {
     result += '<option value="' + arr[i] + '">' + arr[i] + "</option> ";
   }
@@ -90,56 +92,96 @@ function listOptions(arr) {
 // ---- default table html ----
 
 // date
-var tabledate = `<input class="incexp" type="date" value="${today}">`;
+const tabledate = `<input class="incexp" id="row_date" type="date" value="${today}">`;
 
 // income or expense
-var tableincexp =
-  '<select class="incexp" name="incexp" onchange="toggle_category(this.value)" > <option value="Expense">Expense</option> <option value="Income">Income</option> </select>';
+const tableincexp =
+  '<select class="incexp" name="incexp" id="row_type"> <option value="Expense">Expense</option> <option value="Income">Income</option> </select>';
 
 // amount
-var tableamount = '<input class="incexp" type="text" value="$0.00">';
+const tableamount =
+  '<input class="incexp" id="row_amount" type="number" value="0.00">';
 
 // categories
-var exptablecat = listOptions(expcategories);
-var inctablecat = listOptions(inccategories);
+const exptablecat = listOptions(expcategories);
+const inctablecat = listOptions(inccategories);
 
-var tablecategories =
-  '<select class="incexp" name="cat" id = "category">' +
+const tablecategories =
+  '<select class="incexp" name="cat" id = "row_cat">' +
   exptablecat +
   "</select>";
 
 // subcategories
-var expsubcategories = listOptions(expsubcategories);
-var incsubcategories = listOptions(incsubcategories);
+const expsubcategories = listOptions(expsubcats);
+const incsubcategories = listOptions(incsubcats);
 
-var tablesubcat =
-  '<select class="incexp" name="subcat" id = "subcategory">' +
+const tablesubcat =
+  '<select class="incexp" name="subcat" id = "row_subcat">' +
   expsubcategories +
   "</select>";
 
 // description
-var tabledesc = '<input class="incexp" type="text" placeholder="Description">';
+const tabledesc =
+  '<input class="incexp" id="row_desc" type="text" placeholder="Description">';
 
 // Paid by
-var tablepaidby =
-  '<select class="incexp" name="subcat">' + listOptions(paidby) + "</select>";
+const tablepaidby =
+  '<select class="incexp" id="row_paid" name="subcat">' +
+  listOptions(paidby) +
+  "</select>";
 
-var table = document.getElementById("transactions");
+const table = document.getElementById("transactions");
 
-function addNewRow() {
-  row = table.insertRow(-1);
-  row.insertCell(0).innerHTML = tabledate;
-  row.insertCell(1).innerHTML = tableincexp;
-  row.insertCell(2).innerHTML = tableamount;
-  row.insertCell(3).innerHTML = tablecategories;
-  row.insertCell(4).innerHTML = tablesubcat;
-  row.insertCell(5).innerHTML = tabledesc;
-  row.insertCell(6).innerHTML = tablepaidby;
+function Row() {
+  let element = document.createElement("tr");
+  let row_date = document.createElement("td");
+  row_date.innerHTML = tabledate;
+  element.appendChild(row_date);
+  let row_incexp = document.createElement("td");
+  row_incexp.innerHTML = tableincexp;
+  element.appendChild(row_incexp);
+  let row_amount = document.createElement("td");
+  row_amount.innerHTML = tableamount;
+  element.appendChild(row_amount);
+  let row_cat = document.createElement("td");
+  row_cat.innerHTML = tablecategories;
+  element.appendChild(row_cat);
+  let row_subcat = document.createElement("td");
+  row_subcat.innerHTML = tablesubcat;
+  element.appendChild(row_subcat);
+  let row_desc = document.createElement("td");
+  row_desc.innerHTML = tabledesc;
+  element.appendChild(row_desc);
+  let row_paidby = document.createElement("td");
+  row_paidby.innerHTML = tablepaidby;
+  element.appendChild(row_paidby);
+  row_incexp.addEventListener("change", function (ev) {
+    toggle_category(element, ev.target.value);
+  });
+  let save_btn = document.createElement("td");
+  save_btn.innerHTML = "<button>Save</button>";
+  element.appendChild(save_btn);
+  let saved = false;
+  save_btn.addEventListener("click", function (ev) {
+    saved = !saved;
+    let btn = save_btn.querySelector("button");
+    if (saved) {
+      btn.innerHTML = "Edit";
+    } else {
+      btn.innerHTML = "Save";
+    }
+  });
+  this.element = element;
 }
 
-function toggle_category(value) {
-  let cat = document.getElementById("category");
-  let subcat = document.getElementById("subcategory");
+function addNewRow() {
+  let row = new Row();
+  table.appendChild(row.element);
+}
+
+function toggle_category(context, value) {
+  let cat = context.querySelector("#row_cat");
+  let subcat = context.querySelector("#row_subcat");
 
   if (value == "Expense") {
     cat.innerHTML = exptablecat;
